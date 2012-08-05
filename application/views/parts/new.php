@@ -1,6 +1,6 @@
 <div id="edit_part">
-	<!-- <?php echo form_open('parts/update', array('class'=>'form-horizontal')); ?> -->
-	<div class="form-horizontal" id="tambah_item">
+	<?php echo form_open('parts/create', array('class'=>'form-horizontal', 'id'=>'formNew')); ?>
+	<!-- <div class="form-horizontal" id="tambah_item"> -->
 		<fieldset>
 			<legend>Tambah Item Baru</legend>
 			<div class="control-group">
@@ -117,37 +117,23 @@
 				<!-- <button class="btn">Cancel</button> -->
 			</div>
 		</fieldset>
-	</div>
-	<!-- <?php echo form_close(); ?> -->
+	<!-- </div> -->
+	<?php echo form_close(); ?>
 </div>	
 <script type="text/javascript">
-	var CI = {'base_url':'<?php echo base_url() ?>'}
+	// var CI = {'base_url':'<?php echo base_url() ?>'}
 	
-	$("#submitNew").click(function(){
-		var nama_part = $('input#nama_part').val();
-   		var spec_detail = $('input#spec_detail').val();
-   		var zone = $('input#zone').val();
-   		var lokasi_rak = $('input#lokasi_rak').val();
-   		var jml_min = $('input#jml_min').val();
-   		var sat_jml_min = $('select#sat_jml_min').val();
-   		var tlo = $('input#tlo').val();
-   		var time_order = $('input#time_order').val();
-   		var sat_time_order = $('select#sat_time_order').val();
-   		var periode_penggantian = $('input#periode_penggantian').val();
-   		var sat_periode_penggantian = $('select#sat_periode_penggantian').val();
-   		var jml_stok = $('input#jml_stok').val();
-   		var sat_jml_stok = $('select#sat_jml_stok').val();
-   		var ket = $('textarea#ket').val();
+	$("#formNew").submit(function(){
+
+   		var post_data = $(this).serialize();  
+	    var form_action = $(this).attr("action");  
+	    var form_method = $(this).attr("method"); 
 
 		$.ajax({ 
-		   url: CI.base_url+'parts/create', 
-           type: 'post',
+		   url: form_action, 
+           type: form_method,
            dataType: 'json',
-           data: {nama_part:nama_part,spec_detail:spec_detail,zone:zone,
-           	lokasi_rak:lokasi_rak,jml_min:jml_min,sat_jml_min:sat_jml_min,tlo:tlo,time_order:time_order,
-           	sat_time_order:sat_time_order, periode_penggantian:periode_penggantian, sat_periode_penggantian:sat_periode_penggantian,
-           	jml_stok:jml_stok,sat_jml_stok:sat_jml_stok,ket:ket
-           },
+           data: post_data,
            success: function(datas) {
            		console.log(datas.saved);
            		if (datas.saved == true) {
@@ -155,7 +141,11 @@
            		} else {
            			alert('Data failed to save');
            		}
+           },
+           error: function() {
+           		alert('Data failed to save');
            }
         });
+        return false;
 	});
 </script>
