@@ -9,7 +9,7 @@
 				</a>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class=" active dropdown">
+						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Part <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><?php echo anchor('parts/edit', 'Edit Data Part'); ?></li>
@@ -21,7 +21,7 @@
 							<ul class="dropdown-menu">
 								<li><?php echo anchor('parts/tambah', 'Tambah Item Baru'); ?></li>
 								<li><a href="#">Ambil Spare Part</a></li>
-								<li><a href="#">Order Spare Part</a></li>
+								<li><?php echo anchor('parts/order', 'Order Spare Part'); ?></li>
 								<li><a href="#">Tambah Stock</a></li>
 								<!-- <li class="divider"></li> -->
 							</ul>

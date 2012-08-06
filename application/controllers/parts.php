@@ -116,6 +116,13 @@ class Parts extends CI_Controller {
         exit;
     }
 
+    public function order()
+    {
+        $view = 'parts/order';
+        $data = array();
+        gview($view, $data);
+    }
+
 }
 
 /* End of file parts.php */
