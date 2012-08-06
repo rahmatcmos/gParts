@@ -52,7 +52,7 @@
 		<div id="header">
 			<img src="<?php echo $assets ?>img/toyota.jpg" alt="" style="float:left;width:60px;height:40px;margin: 5px">
 			<h3>TOYOTA MOTOR MANUFACTURING INDONESIA</h3>
-			<p >SUMMMARY PART INFORMATION SYSTEM S.LOV 5009</p>
+			<p >SUMMMARY PART INFORMATION SYSTEM S.LOC 5009</p>
 		</div>
 		<div class="row-fluid">
 			<?php if (!is_logged_in()): ?>
