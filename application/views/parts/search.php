@@ -8,6 +8,7 @@
 					<option value="kd_part">Kode Part</option>
 					<option value="nama_part">Nama Part</option>
 					<option value="spec_detail">Detail Speck</option>
+					<option value="zone">Zone</option>
 					<option value="lokasi_rak">Lokasi Rack</option>
 				</select>
 				<button type="submit" class="btn">Search</button>
