@@ -14,6 +14,3 @@
 		</fieldset>
 	<?php echo form_close() ?>
 </div>
-<script type="text/javascript">
-	alert("Username: gopang, Password: panggo");
-</script>
