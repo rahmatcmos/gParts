@@ -22,7 +22,7 @@
 								<li><?php echo anchor('parts/tambah', 'Tambah Item Baru'); ?></li>
 								<li><a href="#">Ambil Spare Part</a></li>
 								<li><?php echo anchor('parts/order', 'Order Spare Part'); ?></li>
-								<li><a href="#">Tambah Stock</a></li>
+								<li><?php echo anchor('parts/tambah_stock', 'Tambah Stock'); ?></li>
 								<!-- <li class="divider"></li> -->
 							</ul>
 						</li>

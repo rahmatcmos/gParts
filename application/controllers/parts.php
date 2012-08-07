@@ -123,6 +123,13 @@ class Parts extends CI_Controller {
         gview($view, $data);
     }
 
+    public function tambah_stock()
+    {
+        $view = 'parts/tambah_stock';
+        $data = array();
+        gview($view, $data);
+    }
+
 }
 
 /* End of file parts.php */
