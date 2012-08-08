@@ -33,9 +33,9 @@
 	</marquee>
 	<div id="detail" style="border:1px solid #ccc;border-radius:5px;margin-top:20px">
 		<p style="text-align:left;margin:5px">
-			Total jumlah part saat ini : <strong><?php echo $count_part; ?></strong> jenis part <br>
+			Total jumlah part saat ini : <strong><?php echo $count_part; ?></strong> jenis part <?php echo anchor('home/search/', 'Detail', array('class'=>"btn btn-primary btn-mini")); ?><br>
 			Jumlah part yang minim saat init ada <strong><?php echo $count_minim_part ?></strong> jenis part 
-			<?php echo anchor('home/search/', 'Detail', array('class'=>"btn btn-primary btn-mini")); ?>
+			
 		</p>
 	</div>
 </div>
