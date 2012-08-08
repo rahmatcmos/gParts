@@ -23,7 +23,7 @@ class Carts extends CI_Controller {
     {
         if ($this->part_cart->count() > 0) {
             $pesan = array(
-                    'tgl_pesan' => date('Y-m-d'),
+                    'tgl_pesan' => date('Y-m-d H:i:s'),
                     'jenis_pesan'  => 'order',
                 );
             $this->db->insert('pesan', $pesan); 
