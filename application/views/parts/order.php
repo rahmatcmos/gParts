@@ -34,7 +34,7 @@
 			  		$("#order_part_jumlah").find("button").attr("class","close").trigger("click");	
 			  		alert("Order Part Success");
 			  		// $("#order_sparepart").find("a[name='"+kd_part+"']").addClass('disabled').removeClass('btn-success').addClass('btn-danger');		  		
-			  		location.reload();
+			  		// location.reload();
 			  	};
 			  },
 			  error: function() {
@@ -121,9 +121,7 @@
 		</tbody>
 	</table>
 	<div class="pull-left">
-		<?php if ($cart_isi): ?>
-			<?php echo anchor('carts/show_cart', "<i class='icon-print icon-white'></i> Simpan dan Cetak", array('class'=>'btn btn-success show_cart')); ?>
-		<?php endif ?>
+		<?php echo anchor('carts/show_cart', "<i class='icon-print icon-white'></i> Simpan dan Cetak", array('class'=>'btn btn-success show_cart')); ?>
 	</div>
 	<?php echo $this->pagination->create_links(); ?>
 </div>

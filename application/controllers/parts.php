@@ -146,11 +146,17 @@ class Parts extends CI_Controller {
         $this->pagination->initialize($config);
 
         $data = array(
-            'part_minim'    => $this->part->fetchMinimParts(array('perpage' => $perpage, 'offset' => $offset)),
-            'cart_isi'      => $this->part->cart_count()
+            'part_minim'    => $this->part->fetchMinimParts(array('perpage' => $perpage, 'offset' => $offset))
         );
 
         gview($view, $data);
+    }
+
+    public function cart_count()
+    {
+        $data= array('cart_isi'      => $this->part->cart_count());
+        return json_encode($data);
+        exit;
     }
 
 

@@ -212,10 +212,4 @@ class Part_model extends CI_Model {
 		}
 	}
 
-	public function cart_count()
-	{
-		$this->load->library('Part_cart');
-		return $this->part_cart->count();
-		exit;
-	}
 }
