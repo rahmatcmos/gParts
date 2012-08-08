@@ -31,11 +31,12 @@ class Carts extends CI_Controller {
             $save_item = array();
             $items = $this->part_cart->items();
             foreach ($items as $kd_part => $qty) {
-                $this->db->select('nama_part,jml_stok');
+                $this->db->select('nama_part,spec_detail, jml_stok');
                 $query_get = $this->db->get_where('part', array('kd_part'=>$kd_part));
                 $row = $query_get->row();
 
                 $nama_part = $row->nama_part;
+                $spec_detail = $row->spec_detail;
                 $stok_lama = $row->jml_stok;
                 $stok_baru = $stok_lama + $qty;
 
@@ -53,7 +54,7 @@ class Carts extends CI_Controller {
                 $this->db->where('kd_part', $kd_part);  
                 $this->db->update('part', $update);
                 
-                array_push($save_item, array('kd_part'=>$kd_part, 'nama_part' => $nama_part, 'qty'=> $qty));
+                array_push($save_item, array('kd_part'=>$kd_part, 'nama_part' => $nama_part, 'spec_detail'=>$spec_detail, 'qty'=> $qty));
             }
             $show = array(
                 'kd_pesan'  => $kd_pesan,
@@ -62,6 +63,8 @@ class Carts extends CI_Controller {
             );
             $this->part_cart->clear();
             $this->load->view('carts/show_cart', $show);
+        } else {
+            echo "<i>No part is ordered</i>, <a href='javascript:void(0)' onclick='window.close()'>Close</a>";
         }
     }
 
