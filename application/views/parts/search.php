@@ -13,7 +13,7 @@
 				</select>
 				<button type="submit" class="btn">Search</button>
 			<?php echo form_close() ?>
-			<div class="tanggal pull-right">2 Januari 2012</div>
+			<div class="tanggal pull-right"><?php echo date('d M Y') ?></div>
 		</div>
 	</div>
 	<table class="table table-bordered table-condensed" >

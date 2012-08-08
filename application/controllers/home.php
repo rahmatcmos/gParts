@@ -35,7 +35,7 @@ class Home extends CI_Controller {
         //untuk konfigurasi pagination pake ini
         $config = array(
             'base_url' => base_url() . 'home/search/',
-            'total_rows' => $this->part->countMinimParts(),
+            'total_rows' => $this->part->countAll(),
             'per_page' => $perpage,
         );
 
@@ -43,7 +43,7 @@ class Home extends CI_Controller {
         $this->pagination->initialize($config);
 
         $data = array(
-            'part_minim'    => $this->part->fetchMinimParts(array('perpage' => $perpage, 'offset' => $offset)),
+            'part_minim'    => $this->part->fetchAll(array('perpage' => $perpage, 'offset' => $offset)),
             'controller'    => 'home'
         );
 
