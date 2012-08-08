@@ -121,7 +121,7 @@
 		</tbody>
 	</table>
 	<div class="pull-left">
-		<?php echo anchor('carts/show_cart', "<i class='icon-print icon-white'></i> Simpan dan Cetak", array('class'=>'btn btn-success show_cart')); ?>
+		<?php echo anchor('carts/show_cart', "<i class='icon-print icon-white'></i> Simpan dan Cetak", array('class'=>'btn btn-success show_cart', 'target'=>'_blank')); ?>
 	</div>
 	<?php echo $this->pagination->create_links(); ?>
 </div>
