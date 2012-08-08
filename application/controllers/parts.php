@@ -32,7 +32,7 @@ class Parts extends CI_Controller {
         //untuk konfigurasi pagination pake ini
         $config = array(
             'base_url' => base_url() . 'parts/search/',
-            'total_rows' => $this->part->countMinimParts(),
+            'total_rows' => $this->part->countAll(),
             'per_page' => $perpage,
         );
 
@@ -40,7 +40,7 @@ class Parts extends CI_Controller {
         $this->pagination->initialize($config);
 
         $data = array(
-            'part_minim'    => $this->part->fetchMinimParts(array('perpage' => $perpage, 'offset' => $offset)),
+            'part_minim'    => $this->part->fetchAll(array('perpage' => $perpage, 'offset' => $offset)),
             'controller'	=> 'parts'
         );
 
@@ -115,13 +115,44 @@ class Parts extends CI_Controller {
         echo json_encode($part_detail);
         exit;
     }
+    public function get_part_by_kd()
+    {
+        $kd_part = $this->input->get('kd_part');
+        $this->load->model('part_model', 'part');
+        $part_detail = $this->part->lookPartByKd($kd_part);
+        // echo $this->db->last_query();exit;
+        echo json_encode($part_detail);
+        exit;
+    }
 
-    public function order()
+
+    public function order($offset = 0)
     {
         $view = 'parts/order';
-        $data = array();
+
+        $this->load->model('part_model', 'part');
+        //tentukan jumlah perpage boz
+        $perpage = 15;
+         //load dulu dong library paginationnya
+        $this->load->library('pagination');
+        //untuk konfigurasi pagination pake ini
+        $config = array(
+            'base_url' => base_url() . 'parts/order/',
+            'total_rows' => $this->part->countMinimParts(),
+            'per_page' => $perpage,
+        );
+
+        //inisialisasi pagination & config di atas
+        $this->pagination->initialize($config);
+
+        $data = array(
+            'part_minim'    => $this->part->fetchMinimParts(array('perpage' => $perpage, 'offset' => $offset)),
+            'cart_isi'      => $this->part->cart_count()
+        );
+
         gview($view, $data);
     }
+
 
     public function tambah_stock()
     {

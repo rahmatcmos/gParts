@@ -31,6 +31,7 @@
 		<tbody>
 			<?php if ($part_minim): ?>
 				<?php $i = (1+$this->uri->segment(3)); foreach ($part_minim as $part): ?>
+				<?php $min_stok_color = ($part->jml_stok < $part->jml_min) ? "style='color:red'" : ''; ?>
 				<tr>
 					<td width="30px"><?php echo $i++ ?></td>
 					<td width="70px"><?php echo $part->kd_part ?></td>
@@ -38,7 +39,7 @@
 					<td width="170px"><?php echo $part->spec_detail ?></td>
 					<td align="center" width="80px"><?php echo $part->lokasi_rak ?></td>
 					<td align="center" width="70px"><?php echo $part->jml_min ?> <?php echo set_satuan($part->sat_jml_min) ?></td>
-					<td align="center" width="70px" style="color:red">
+					<td align="center" width="70px" <?php echo $min_stok_color; ?> >
 						<?php echo $part->jml_stok ?> <?php echo set_satuan($part->sat_jml_stok) ?>
 					</td>
 				</tr>

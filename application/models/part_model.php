@@ -10,18 +10,46 @@ class Part_model extends CI_Model {
 
 	public function countAll()
 	{
-		return $this->db->count_all($this->table_name);
+		$pencarian = $this->input->get('pencarian');
+        $by = $this->input->get('by');
+
+		$this->db->from($this->table_name);
+		$this->db->order_by('zone','asc');
+		if (($pencarian != '') || ($by != '')) {
+			if ($by == '') {
+				$by = 'nama_part';
+			}
+			$this->db->like($by, $pencarian);
+		}
+		// return $this->db->count_all($this->table_name);
+		return $this->db->count_all_results();
 	}
 
 	public function fetchAll($limit = array())
 	{
+		$pencarian = $this->input->get('pencarian');
+        $by = $this->input->get('by');
+
+        $this->db->order_by('zone','asc');
 		$this->db->select('*');
+
+		if (($pencarian != '') || ($by != '')) {
+			if ($by == '') {
+				$by = 'nama_part';
+			}
+			$this->db->like($by, $pencarian);
+		}
+
 		if ($limit == null) {
 			$query = $this->db->get($this->table_name);
 		} else {
 			$query = $this->db->get($this->table_name, $limit['perpage'], $limit['offset']);
 		}
-		return $query->result_array();
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return 0;
+		}
 	}
 
 	public function fetchMinimParts($limit = array())
@@ -29,7 +57,7 @@ class Part_model extends CI_Model {
 		$pencarian = $this->input->get('pencarian');
         $by = $this->input->get('by');
 
-		$this->db->select('kd_part,nama_part,spec_detail,zone,lokasi_rak,jml_min,sat_jml_min,jml_stok,sat_jml_stok');
+		$this->db->select('*');
 		$this->db->order_by('zone','asc');
 		$this->db->where('jml_stok < jml_min');
 		if (($pencarian != '') || ($by != '')) {
@@ -151,6 +179,15 @@ class Part_model extends CI_Model {
 		return $thepart;
 	}
 
+	public function lookPartByKd($kd_part)
+	{
+		$this->db->select('kd_part, nama_part,spec_detail');
+		$this->db->where('kd_part', $kd_part);
+		$query = $this->db->get('part');
+		$thepart = $query->row();
+		return $thepart;
+	}
+
 	public function showPart($nama_part) {
 		$this->db->select('*');
 		$this->db->where('nama_part', $nama_part);
@@ -159,5 +196,26 @@ class Part_model extends CI_Model {
 		return $thepart;
 	}
 
+	public function save_order($kd_part, $jumlah = 0) {
+		if ($kd_part) {
+			$this->db->select('jml_stok');
+			$query = $this->db->get_where('part', array('kd_part'=>"$kd_part"));
+			$part = $query->row();
+			$stok_lama = (int) $part->jml_stok;
 
+			$data = array(
+			   'kd_part' => "$kd_part" ,
+			   'jumlah' => $stok_lama + ((int) $jumlah)
+			);
+
+			$this->db->update('part', $data); 
+		}
+	}
+
+	public function cart_count()
+	{
+		$this->load->library('Part_cart');
+		return $this->part_cart->count();
+		exit;
+	}
 }

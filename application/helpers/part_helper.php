@@ -107,3 +107,16 @@ if (! function_exists('tlo_convert')) {
 		return $val;
 	}
 }
+
+if (! function_exists('set_lokasiorder')) {
+	function set_lokasiorder($val){
+		switch($val)
+		{
+			case 0:$val="import";break;
+			case 1:$val="lokal";break;
+			default:$val="lokal";break;
+
+		}
+		return $val;
+	}
+}

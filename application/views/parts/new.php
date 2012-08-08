@@ -89,9 +89,9 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<?php echo form_label('Stock Saat Ini', 'jml_stok', array('class'=>'control-label')) ?>
+				<?php echo form_label('Jumlah Stok Awal', 'jml_stok', array('class'=>'control-label')) ?>
 				<div class="controls">
-					<?php echo form_input(array('name'=>'jml_stok','class'=>'input-mini','id'=>'jml_stok', 'disabled'=>'disabled')); ?>
+					<?php echo form_input(array('name'=>'jml_stok','class'=>'input-mini','id'=>'jml_stok')); ?>
 					<?php 
 						$options_jml_stok = array(
 							''		=> '---',
@@ -103,7 +103,7 @@
 							'10'	=> 'Lot'
 						); 
 					?>
-					<?php echo form_dropdown('sat_jml_stok', $options_jml_stok, '', 'class="input-mini" id="sat_jml_stok" disabled="disabled" '); ?>
+					<?php echo form_dropdown('sat_jml_stok', $options_jml_stok, '', 'class="input-mini" id="sat_jml_stok"'); ?>
 				</div>
 			</div>
 			<div class="control-group">
