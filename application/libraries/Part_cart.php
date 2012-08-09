@@ -3,7 +3,7 @@
 class Part_cart {
     public $ci;             // holds reference pointer to CI object
     public $cart = array(); // array to store cart
-    private $session_var = 'shopping_cart'; // name of the session variable to be used
+    private $session_var = 'part_cart'; // name of the session variable to be used
  
     // constructor
     function __construct() {
@@ -76,7 +76,7 @@ class Part_cart {
      * access: public
      * return array
      * sample return data
-     * $cart = $this->shopping_cart->items();
+     * $cart = $this->part_cart->items();
      * when integer id
      * $cart = array(
      *              [1] => 3,
