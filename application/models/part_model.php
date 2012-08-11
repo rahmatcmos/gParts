@@ -120,7 +120,7 @@ class Part_model extends CI_Model {
 		}  
 	}
 
-	 function create($data)
+	public function create($data)
 	 {  
 	 	$sql="select kd_part from part order by kd_part desc";
 		$q=mysql_query($sql);
@@ -157,6 +157,7 @@ class Part_model extends CI_Model {
 	 		return false;  
 	 	}  
 	 } 
+	
 	function delete($id)
 	{  
 		$this->db->where('id', $id);  
@@ -210,6 +211,21 @@ class Part_model extends CI_Model {
 
 			$this->db->update('part', $data); 
 		}
+	}
+
+	public function ambil_part($nama_part, $spec_detail, $qty)
+	{
+		$this->db->select('kd_part,jml_stok');
+		$query = $this->db->get_where('part', array('nama_part'=>$nama_part, 'spec_detail'=> $spec_detail));
+		$part = $query->row();
+		$stok_lama = (int) $part->jml_stok;
+
+		$data = array(
+			'kd_part'	=> "$kd_part",
+			'jumlah'	=> $stok_lama - ((int) $qty)
+		);
+
+		$this->db->update('part', $data);
 	}
 
 }

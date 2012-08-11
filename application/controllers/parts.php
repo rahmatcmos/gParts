@@ -167,6 +167,60 @@ class Parts extends CI_Controller {
         gview($view, $data);
     }
 
+    public function ambil_part()
+    {
+        $view = 'parts/ambil_stock';
+        $data = array();
+        gview($view, $data);
+    }
+
+    public function ambil_part_save()
+    {
+        $list_parts = $this->input->post('parts');
+        // echo count($list_parts);exit;
+        $this->load->model('part_model', 'part');
+        if (count($list_parts) > 0) {
+            $pesan = array(
+                    'tgl_pesan' => date('Y-m-d H:i:s'),
+                    'jenis_pesan'  => 'ambil',
+                );
+            $this->db->insert('pesan', $pesan); 
+            $kd_pesan = $this->db->insert_id();
+            $save_item = array();
+            foreach ($list_parts as $item) {
+                $part = explode(' -> ', $item['nama_part']);
+                $nama_part = trim($part[0]);
+                $spec_detail = trim($part[1]);
+                $qty = $item['qty'];
+
+                $this->db->select('kd_part,jml_stok');
+                $query = $this->db->get_where('part', array('nama_part'=>$nama_part, 'spec_detail'=> $spec_detail));
+                $part = $query->row();
+
+                $stok_lama = $part->jml_stok;
+                $stok_baru = $stok_lama - $qty;
+
+                $part_pesan = array(
+                   'kd_pesan' => $kd_pesan,
+                   'kd_part' => $part->kd_part,
+                   'jml' => $qty,
+                   
+                );
+                $this->db->insert('part_pesan', $part_pesan); 
+
+                $update = array(
+                    'jml_stok' => $stok_baru
+                );
+
+                $this->db->where('kd_part', $part->kd_part);  
+                $this->db->update('part', $update);
+                
+            }
+            echo json_encode(array('result'=>TRUE));
+        } else {
+            echo json_encode(array('result'=>FALSE));
+        }
+    }
 }
 
 /* End of file parts.php */

@@ -20,7 +20,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Transaksi <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><?php echo anchor('parts/tambah', 'Tambah Item Baru'); ?></li>
-								<li><a href="#">Ambil Spare Part</a></li>
+								<li><?php echo anchor('parts/ambil_part', 'Ambil Spare Part'); ?></li>
 								<li><?php echo anchor('parts/order', 'Order Spare Part'); ?></li>
 								<li><?php echo anchor('parts/tambah_stock', 'Tambah Stock'); ?></li>
 								<!-- <li class="divider"></li> -->
