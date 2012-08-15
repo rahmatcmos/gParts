@@ -9,6 +9,13 @@
 		<fieldset>
 			<legend>Edit Data Part</legend>
 			<div class="control-group">
+				<?php echo form_label('Kode Part','kd_part',array('class'=>'control-label')) ?>
+				<div class="controls">
+					<?php echo form_input(array('name'=>'kd_part', 'id'=>'kd_part', 'class'=>'input-medium')); ?>
+					<p class="help-block" style="font-size:x-small"><em>format : x-xxx-xxxx</em></p>
+				</div>
+			</div>
+			<div class="control-group">
 				<?php echo form_label('Nama Part','nama_part',array('class'=>'control-label')) ?>
 				<div class="controls">
 					<?php echo form_input(array('name'=>'nama_part', 'id'=>'nama_part', 'class'=>'input-xlarge')); ?>
@@ -55,9 +62,9 @@
 				<div class="controls">
 					<?php 
 						$options_tlo = array(
-							''	=> '---',
-							'1' => 'Lokal',
-							'0'	=> 'Import'
+							'0'	=> '---',
+							'2' => 'Lokal',
+							'1'	=> 'Import'
 						);
 					?>
 					<?php echo form_dropdown('tlo', $options_tlo, '', 'id="tlo" class="input-medium"'); ?>
@@ -118,7 +125,7 @@
 				</div>
 			</div>
 			<div class="form-actions">
-				<button id="submitUpdate" type="submit" class="btn btn-primary">Save changes</button>
+				<button id="submitUpdate" type="submit" class="btn btn-primary">Update</button>
 				<!-- <button class="btn">Cancel</button> -->
 			</div>
 		</fieldset>

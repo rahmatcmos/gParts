@@ -78,7 +78,7 @@ class Parts extends CI_Controller {
     {
         $part = $this->input->post();
         if($part['kd_part'] != null){  
-            $this->db->update('part', $part, "kd_part = ".$part['kd_part']);
+            $this->db->update('part', $part, "kd_part = '".$part['kd_part']."'");
             echo json_encode(array('saved'=>true)) ;
         } else{  
             echo json_encode(array('saved'=>false)) ;
@@ -167,6 +167,7 @@ class Parts extends CI_Controller {
         gview($view, $data);
     }
 
+    // action ambil part
     public function ambil_part()
     {
         $view = 'parts/ambil_stock';
@@ -174,11 +175,14 @@ class Parts extends CI_Controller {
         gview($view, $data);
     }
 
+    // save action ambil part
     public function ambil_part_save()
     {
+        // get post var 'parts'
         $list_parts = $this->input->post('parts');
         // echo count($list_parts);exit;
         $this->load->model('part_model', 'part');
+        // jika ada input
         if (count($list_parts) > 0) {
             $pesan = array(
                     'tgl_pesan' => date('Y-m-d H:i:s'),
@@ -186,6 +190,7 @@ class Parts extends CI_Controller {
                 );
             $this->db->insert('pesan', $pesan); 
             $kd_pesan = $this->db->insert_id();
+            
             $save_item = array();
             foreach ($list_parts as $item) {
                 $part = explode(' -> ', $item['nama_part']);

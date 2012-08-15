@@ -110,7 +110,7 @@ class Part_model extends CI_Model {
 	}
 
 	public function update($id, $data) {
-		$this->db->where('id', $id);  
+		$this->db->where('id', "$id");  
 		$this->db->update($this->table_name, $data);  
 		if($this->db->affected_rows() > 0){  
 			return true;  
@@ -122,34 +122,34 @@ class Part_model extends CI_Model {
 
 	public function create($data)
 	 {  
-	 	$sql="select kd_part from part order by kd_part desc";
-		$q=mysql_query($sql);
-		$r=mysql_fetch_assoc($q);
-		$urut=$r['kd_part'];
-		$urut=substr($urut,-5,5);
-		$urut++;
-		$s=strlen($urut);
-		if($s==1)
-		{
-			$urut="0000".$urut;
-			$kdp=$urut;
-		}
-		elseif($s==2)
-		{
-			$urut="000".$urut;
-			$kdp=$urut;
-		}elseif($s==3)
-		{
-			$kdp="00".$urut;
-		}elseif($s==4)
-		{
-			$kdp="0".$urut;
-		}elseif($s==0)
-		{
-			$kdp=$th."00001";
-		}
+	 // 	$sql="select kd_part from part order by kd_part desc";
+		// $q=mysql_query($sql);
+		// $r=mysql_fetch_assoc($q);
+		// $urut=$r['kd_part'];
+		// $urut=substr($urut,-5,5);
+		// $urut++;
+		// $s=strlen($urut);
+		// if($s==1)
+		// {
+		// 	$urut="0000".$urut;
+		// 	$kdp=$urut;
+		// }
+		// elseif($s==2)
+		// {
+		// 	$urut="000".$urut;
+		// 	$kdp=$urut;
+		// }elseif($s==3)
+		// {
+		// 	$kdp="00".$urut;
+		// }elseif($s==4)
+		// {
+		// 	$kdp="0".$urut;
+		// }elseif($s==0)
+		// {
+		// 	$kdp=$th."00001";
+		// }
 
-		$data['kd_part'] = $kdp;
+		// $data['kd_part'] = $kdp;
 	 	$this->db->insert($this->table_name, $data);  
 	 	if($this->db->affected_rows() > 0){  
 	 		return true;  

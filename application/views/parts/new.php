@@ -4,6 +4,13 @@
 		<fieldset>
 			<legend>Tambah Item Baru</legend>
 			<div class="control-group">
+				<?php echo form_label('Kode Part','kd_part',array('class'=>'control-label')) ?>
+				<div class="controls">
+					<?php echo form_input(array('name'=>'kd_part', 'id'=>'kd_part', 'class'=>'input-medium')); ?>
+					<p class="help-block" style="font-size:x-small"><em>format : x-xxx-xxxx</em></p>
+				</div>
+			</div>
+			<div class="control-group">
 				<?php echo form_label('Nama Part','nama_part',array('class'=>'control-label')) ?>
 				<div class="controls">
 					<?php echo form_input(array('name'=>'nama_part', 'id'=>'nama_part', 'class'=>'input-xlarge')); ?>
@@ -113,7 +120,7 @@
 				</div>
 			</div>
 			<div class="form-actions">
-				<button id="submitNew" type="submit" class="btn btn-primary">Save changes</button>
+				<button id="submitNew" type="submit" class="btn btn-primary">Tambah</button>
 				<!-- <button class="btn">Cancel</button> -->
 			</div>
 		</fieldset>
