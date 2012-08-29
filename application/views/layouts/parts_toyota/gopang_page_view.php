@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<title>Parts Controlling System</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="human resources management sistem">
+	<meta name="description" content="parts">
 	<meta name="author" content="">
 
 	<script src="<?php echo $assets ?>js/jquery-1.7.2.min.js"></script>

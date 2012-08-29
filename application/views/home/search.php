@@ -3,7 +3,7 @@
 		<div class="well">
 			<?php echo form_open('home/search', array('class'=>'form-search pull-left', 'method'=>'get')); ?>
 			<?php echo form_input(array('name'=>'pencarian', 'class'=>'input-medium search-query')); ?>
-				<select name="by" id="" class="input-medium">
+				<select name="by" id="search_parts_by" class="input-medium">
 					<option value="">-- Search By --</option>
 					<option value="kd_part">Kode Part</option>
 					<option value="nama_part">Nama Part</option>

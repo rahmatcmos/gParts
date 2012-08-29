@@ -23,3 +23,16 @@ function checkKodePart(id){
 	
 	$("#"+id).val(kodePartValue);
 }
+
+$("#search_parts_by").change(function(){
+	// console.log($(this).attr('value'));
+	var option = $(this).attr('value');
+	switch(option) {
+		case 'kd_part':
+			break;
+		case 'nama_part':
+			break;
+		case 'stock_minimum':
+			break;
+	}
+});

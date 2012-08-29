@@ -228,4 +228,15 @@ class Part_model extends CI_Model {
 		$this->db->update('part', $data);
 	}
 
+	public function getOrder($kd_order)
+	{
+		$this->db->select('part.kd_part,nama_part,jml');
+		$this->db->join('part_pesan', 'part_pesan.kd_pesan = pesan.kd_pesan', 'left');
+		$this->db->join('part', 'part.kd_part = part_pesan.kd_part', 'left');
+		$this->db->where('pesan.kd_pesan', $kd_order);
+		$this->db->where('pesan.jenis_pesan', 'order');
+		$query = $this->db->get('pesan');
+		return $query->result();
+	}
+
 }

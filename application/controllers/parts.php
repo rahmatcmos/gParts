@@ -226,6 +226,62 @@ class Parts extends CI_Controller {
             echo json_encode(array('result'=>FALSE));
         }
     }
+
+    public function getOrderpart() 
+    {
+        if ($this->input->get('kd_order')) {
+            $this->load->model('part_model', 'part');
+            $orders = $this->part->getOrder($this->input->get('kd_order'));
+            echo json_encode($orders);
+        }
+        exit;
+    }
+
+    // change flag dari order ke tambah
+    public function updateOrderToTambah()
+    {
+        $kode_order = $this->input->post('kode_order');
+        if ($kode_order != null) {
+            $pesan = array(
+                'tgl_pesan' => date('Y-m-d H:i:s'),
+                'jenis_pesan'  => 'tambah',
+            );
+            $this->db->where('kd_pesan', $kode_order);
+            $this->db->update('pesan', $pesan); 
+            echo json_encode(array('result'=>TRUE));
+        } else {
+            echo json_encode(array('result'=>FALSE));
+        }
+    }
+
+    public function tambahPart()
+    {
+        $kd_pesan = $this->input->post('kd_pesan'); 
+        $kd_part = $this->input->post('kd_part');
+        $qty  = $this->input->post('jumlah');
+
+        $this->db->select('kd_part,jml_stok');
+        $query = $this->db->get_where('part', array('kd_part'=>$kd_part));
+        $part = $query->row();
+
+        $part_pesan = array(
+           'jml' => $qty,
+           
+        );
+        $this->db->where('kd_pesan', $kd_pesan);  
+        $this->db->where('kd_part', $kd_part);  
+        $this->db->update('part_pesan', $part_pesan);
+
+        $stok_lama = $part->jml_stok;
+        $stok_baru = $stok_lama + $qty;
+
+        $update = array(
+            'jml_stok' => $stok_baru
+        );
+
+        $this->db->where('kd_part', $kd_part);  
+        $this->db->update('part', $update);
+    }
 }
 
 /* End of file parts.php */
