@@ -5,6 +5,7 @@ class Record extends CI_Controller {
     public function __construct()
     {
        parent::__construct();
+       $this->check_isvalidated();
        $this->load->model('part_model', 'part');
     }
 

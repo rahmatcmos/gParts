@@ -2,6 +2,12 @@
 
 class Report extends CI_Controller {
 
+	public function __construct()
+	{
+	   parent::__construct();
+	   $this->check_isvalidated();
+	}
+
     public function index()
     {
         $view = 'report/index';
