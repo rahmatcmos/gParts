@@ -9,6 +9,14 @@ class Record extends CI_Controller {
        $this->load->model('part_model', 'part');
     }
 
+    public function check_isvalidated()
+    {
+        if (!$this->session->userdata('validated')) {
+            redirect('login');
+        }
+    }
+
+
     public function perbulan($offset = 0)
     {
 		$view = 'record/perbulan';
