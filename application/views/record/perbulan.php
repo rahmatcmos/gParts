@@ -1,9 +1,9 @@
 <div id="record_perbulan">
 	<div class="pencarian">
 		<div class="well">
-			<form class="form-search pull-left">
-				<select id="select01" class="input-small pad01">
-					<option>- Tahun -</option>
+			<form class="form-search pull-left" id="search_record" method="get">
+				<select name="tahun" id="tahun" class="input-small pad01">
+					<option value='0'>- Tahun -</option>
 					<option value="2012">2012</option> 
 					<option value="2011">2011</option>
 					<option value="2010">2010</option>
@@ -12,27 +12,27 @@
 					<option value="2007">2007</option>
 					<option value="2006">2006</option>
 				</select>
-				<select id="select02" class="input-small pad01">
-					<option>- Bulan -</option>
-					<option>Januari</option>
-					<option>Februari</option>
-					<option>Maret</option>
-					<option>April</option>
-					<option>Mei</option>
-					<option>Juni</option>
-					<option>Juli</option>
-					<option>Agustus</option>
-					<option>Septeember</option>
-					<option>Oktober</option>
-					<option>November</option>
-					<option>Desember</option>
+				<select name="bulan" id="bulan" class="input-small pad01">
+					<option value="0">- Bulan -</option>
+					<option value="1">Januari</option>
+					<option value="2">Februari</option>
+					<option value="3">Maret</option>
+					<option value="4">April</option>
+					<option value="5">Mei</option>
+					<option value="6">Juni</option>
+					<option value="7">Juli</option>
+					<option value="8">Agustus</option>
+					<option value="9">Septeember</option>
+					<option value="10">Oktober</option>
+					<option value="11">November</option>
+					<option value="12">Desember</option>
 				</select>
 				<button type="submit" class="btn">Lihat</button>
 			</form>
 		</div>
 	</div>
 	<div id="sub_head" style="text-align:center">
-		<h2>DATA REKAP LOG PART BULAN - DESEMBER -</h2>
+		<h2>DATA REKAP LOG PART BULAN - <?php echo strtoupper(bulan($bulan)) ?> - <?php echo $tahun ?></h2>
 	</div>
 	<table class="table table-bordered">
 		<thead>
@@ -46,83 +46,25 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
+			<?php $i = 1 ?>
+			<?php foreach ($records as $record): ?>
+				<tr>
+					<td><?php echo $i ?></td>
+					<td><?php echo $record->nama_part ?></td>
+					<td><?php echo $record->tanggal ?></td>
+					<td><?php echo $record->waktu ?> WIB</td>
+					<?php if ($record->jenis_pesan == 'tambah'): ?>
+						<td><?php echo $record->jml ?></td>
+						<td>-</td>
+					<?php else: ?>
+						<td>-</td>
+						<td><?php echo $record->jml ?></td>
+					<?php endif ?>
+					
+				</tr>
+				<?php $i += 1 ?>
+			<?php endforeach ?>
 		</tbody>
 	</table>
-	<div class="pagination pull-left" style="margin-top:0px">
-		<ul>
-			<li><a href="#">Prev</a></li>
-			<li class="active">
-				<a href="#">1</a>
-			</li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">Next</a></li>
-		</ul>
-	</div>
-	<a href="" class="btn btn-success pull-right"><i class="icon-print icon-white"></i> Cetak</a>
+	<a href="" class="btn btn-success pull-left"><i class="icon-print icon-white"></i> Cetak</a>
 </div>
