@@ -184,7 +184,17 @@ class Parts extends CI_Controller {
         $this->load->model('part_model', 'part');
         // jika ada input
         if (count($list_parts) > 0) {
+            // ambil max kd_pesan
+            $this->db->select_max('kd_pesan');
+            $query = $this->db->get('pesan');
+            $pesan = $query->row();
+            // kd_pesan diambil setelah tanggal ex.20120405__
+            $kd_pesan_old = substr($pesan->kd_pesan, 8);
+            // generate kd_pesan baru (ditambah 1)
+            $kd_pesan_new = ((int) $kd_pesan_old) + 1;
+            // siapkan variable
             $pesan = array(
+                    'kd_pesan' => date('Ymd').$kd_pesan_new, // kd_pesan baru tanggal+kd_pesan
                     'tgl_pesan' => date('Y-m-d H:i:s'),
                     'jenis_pesan'  => 'ambil',
                 );
