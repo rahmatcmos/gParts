@@ -35,7 +35,7 @@
 							</ul>
 						</li>
 						<li><?php echo anchor('parts/search', 'Search'); ?></li>
-						<li><a href="#">Report</a></li>
+						<li><?php echo anchor('report', 'Report'); ?></li>
 					</ul>
 					<ul class="nav pull-right">
 						<li class="divider-vertical"></li>
