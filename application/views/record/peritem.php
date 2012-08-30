@@ -2,14 +2,18 @@
 	<div class="pencarian">
 		<div class="well">
 			<form class="form-search pull-left">
-				<input type="text" class="input-xlarge search-query" placeholder="Masukkan Nama Part">
-				<button type="submit" class="btn">Lihat</button>
+				<input type="text" class="input-xlarge search-query" id="searchinput" placeholder="Masukkan Nama Part">
+				<button type="submit" id="submitSearch" class="btn">Lihat</button>
 			</form>
 		</div>
 	</div>
 	<div id="sub_head" style="text-align:center">
 		<h2>DATA REKAP TRANSAKSI</h2>
-		<p>- Nama Part - 24 Maret 1989</p>
+		<?php if ($part): ?>
+			<p>- <?php echo $part ?> - <?php echo date('d m Y') ?></p>
+		<?php else: ?>
+			<p><?php echo date('d F Y') ?></p>
+		<?php endif ?>
 	</div>
 	<table class="table table-bordered">
 		<thead>
@@ -23,83 +27,83 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>Nama Part</td>
-				<td>2 Maret 2012</td>
-				<td>14:32:43 WIB</td>
-				<td>12</td>
-				<td>54</td>
-			</tr>
+			<?php $i = 1 ?>
+			<?php foreach ($records as $record): ?>
+				<tr>
+					<td><?php echo $i ?></td>
+					<td><?php echo $record->nama_part ?></td>
+					<td><?php echo $record->tanggal ?></td>
+					<td><?php echo $record->waktu ?> WIB</td>
+					<?php if ($record->jenis_pesan == 'tambah'): ?>
+						<td><?php echo $record->jml ?></td>
+						<td>-</td>
+					<?php else: ?>
+						<td>-</td>
+						<td><?php echo $record->jml ?></td>
+					<?php endif ?>
+					
+				</tr>
+				<?php $i += 1 ?>
+			<?php endforeach ?>
 		</tbody>
 	</table>
-	<div class="pagination pull-left" style="margin-top:0px">
-		<ul>
-			<li><a href="#">Prev</a></li>
-			<li class="active">
-				<a href="#">1</a>
-			</li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">Next</a></li>
-		</ul>
-	</div>
 	<a href="" class="btn btn-success pull-right"><i class="icon-print icon-white"></i> Cetak</a>
 </div>
+<script type="text/javascript">
+	var CI = {'base_url':'<?php echo base_url() ?>'}
+	var autocomplete = $('#searchinput').typeahead()
+        .on('keyup', function(ev){
+
+            ev.stopPropagation();
+            ev.preventDefault();
+
+            //filter out up/down, tab, enter, and escape keys
+            if( $.inArray(ev.keyCode,[40,38,9,13,27]) === -1 ){
+
+                var self = $(this);
+                
+                //set typeahead source to empty
+                self.data('typeahead').source = [];
+
+                //active used so we aren't triggering duplicate keyup events
+                if( !self.data('active') && self.val().length > 0){
+
+                    self.data('active', true);
+
+                    //Do data request. Insert your own API logic here.
+                    $.getJSON(CI.base_url+'parts/lookup_part',{
+                        part: $(this).val()
+                    }, function(data) {
+                    	// console.log(data);
+                        //set this to true when your callback executes
+                        self.data('active',true);
+
+                        //Filter out your own parameters. Populate them into an array, since this is what typeahead's source requires
+
+
+
+                        //set your results into the typehead's source
+                        self.data('typeahead').source = data;
+
+                        //trigger keyup on the typeahead to make it search
+                        self.trigger('keyup');
+
+                        //All done, set to false to prepare for the next remote query.
+                        self.data('active', false);
+
+                    });
+
+                }
+            }
+        });
+
+		$("#submitSearch").click(function(){
+			var search = $("#searchinput").val();
+			var part = search.split('->');
+			var nama_part = $.trim(part[0])
+			var CI = {'base_url':'<?php echo base_url() ?>'}
+			var url = CI.base_url + 'record/peritem?part='+ encodeURIComponent(nama_part);
+			$(location).attr('href',url);
+	        return false;
+		});
+</script>

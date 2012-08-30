@@ -265,9 +265,16 @@ class Part_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function recordPerItem()
+	public function recordPerItem($nama_part)
 	{
-
+		$this->db->select('ps.kd_part, part.nama_part, DATE(p.tgl_pesan) tanggal, TIME(p.tgl_pesan) waktu, ps.jml, p.jenis_pesan');
+		$this->db->join('pesan p', 'p.kd_pesan = ps.kd_pesan', 'left');
+		$this->db->join('part', 'part.kd_part = ps.kd_part');
+		$this->db->group_by(array("p.jenis_pesan", "ps.kd_part")); 
+		$this->db->like('part.nama_part', $nama_part);
+		$this->db->where_in('p.jenis_pesan', array('tambah','ambil'));
+		$query = $this->db->get('part_pesan ps');
+		return $query->result();	
 	}
 
 }

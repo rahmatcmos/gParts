@@ -43,8 +43,13 @@ class Record extends CI_Controller {
     public function peritem()
     {
     	$view = 'record/peritem';
-    	$records = $this->part->recordPerItem();
-        $data = array('records'=>$records);
+        $part = $this->input->get('part');
+        if ($part) {
+            $records = $this->part->recordPerItem($part);
+        } else {
+            $records = $this->part->recordAll();
+        }
+        $data = array('records'=>$records, 'part'=>$part);
     	gview($view, $data);
     }
 
