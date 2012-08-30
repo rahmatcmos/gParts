@@ -8,6 +8,14 @@ class Report extends CI_Controller {
 	   $this->check_isvalidated();
 	}
 
+    public function check_isvalidated()
+    {
+        if (!$this->session->userdata('validated')) {
+            redirect('login');
+        }
+    }
+
+
     public function index()
     {
         $view = 'report/index';
