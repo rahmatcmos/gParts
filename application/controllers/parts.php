@@ -216,7 +216,7 @@ class Parts extends CI_Controller {
                 $stok_baru = $stok_lama - $qty;
 
                 $part_pesan = array(
-                   'kd_pesan' => $kd_pesan,
+                   'kd_pesan' => date('Ymd').$kd_pesan_new,
                    'kd_part' => $part->kd_part,
                    'jml' => $qty,
                    
