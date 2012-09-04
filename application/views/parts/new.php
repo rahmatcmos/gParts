@@ -6,7 +6,19 @@
 			<div class="control-group">
 				<?php echo form_label('Kode Part','kd_part',array('class'=>'control-label')) ?>
 				<div class="controls">
-					<?php echo form_input(array('name'=>'kd_part', 'id'=>'kd_part', 'class'=>'input-medium')); ?>
+					<?php 
+						$options_lokasi_order = array(
+							'B' => 'B',
+							'C'	=> 'C'
+						); 
+						$options_jenis_kategori = array(
+							'777' => '777',
+							'774' => '774',
+						);
+					?>
+					<?php echo form_dropdown('kd_part[]', $options_lokasi_order, '', 'id="lokasi_order" class="input-mini"'); ?>
+					<?php echo form_dropdown('kd_part[]', $options_jenis_kategori, '', 'id="jenis_kategori" class="input-mini"'); ?>
+					<?php echo form_input(array('name'=>'kd_part[]', 'id'=>'kd_part', 'class'=>'input-medium')); ?>
 					<p class="help-block" style="font-size:x-small"><em>format : x-xxx-xxxx</em></p>
 				</div>
 			</div>

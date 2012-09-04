@@ -104,7 +104,7 @@
 					<td><?php echo $part->nama_part ?></td>
 					<td><?php echo $part->spec_detail ?></td>
 					<td><?php echo $part->lokasi_rak ?></td>
-					<td><?php echo $part->time_order ?></td>
+					<td><?php echo $part->time_order ?> <?php echo set_satuan($part->sat_time_order) ?></td>
 					<td><?php echo $part->jml_min ?> <?php echo set_satuan($part->sat_jml_min) ?></td>
 					<td style="color:red"><?php echo $part->jml_stok ?> <?php echo set_satuan($part->sat_jml_stok) ?></td>
 					<td><?php echo set_lokasiorder($part->tlo) ?></td>

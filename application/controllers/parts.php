@@ -6,6 +6,7 @@ class Parts extends CI_Controller {
 	{
 	   parent::__construct();
 	   $this->check_isvalidated();
+       $this->kd_part = '';
 	}
 
     public function check_isvalidated()
@@ -18,6 +19,41 @@ class Parts extends CI_Controller {
     public function index()
     {
  		
+    }
+
+    public function delete($offset = 0)
+    {
+        $this->load->model('part_model', 'part');
+        if ($kd_part = $this->input->get('kd_part')) {
+            $delete = $this->part->deletePart($kd_part);
+            if ($delete) {
+                echo json_encode(array('result'=>$delete));
+            } else {
+                echo json_encode(array('result'=>FALSE));
+            }
+            exit;
+        } else {
+            $view = 'parts/delete';
+            //tentukan jumlah perpage boz
+            $perpage = 15;
+             //load dulu dong library paginationnya
+            $this->load->library('pagination');
+            //untuk konfigurasi pagination pake ini
+            $config = array(
+                'base_url' => base_url() . 'parts/delete/',
+                'total_rows' => $this->part->countAll(),
+                'per_page' => $perpage,
+            );
+
+            //inisialisasi pagination & config di atas
+            $this->pagination->initialize($config);
+
+            $data = array(
+                'part_minim'    => $this->part->fetchAll(array('perpage' => $perpage, 'offset' => $offset)),
+                'controller'    => 'parts'
+            );
+            gview($view, $data);
+        }
     }
 
     public function search($offset = 0)
@@ -57,7 +93,8 @@ class Parts extends CI_Controller {
     public function create()
     {
         $part = $this->input->post();
-
+        $kd_part = implode('-', $part['kd_part']);
+        $part['kd_part'] = $kd_part;
         $this->load->model('part_model', 'part');
         if($this->part->create($part)){  
             echo json_encode(array('saved'=>true)) ;
@@ -77,8 +114,11 @@ class Parts extends CI_Controller {
     public function update()
     {
         $part = $this->input->post();
+        $kd_part_old = $part['kd_part'];
         if($part['kd_part'] != null){  
-            $this->db->update('part', $part, "kd_part = '".$part['kd_part']."'");
+            $this->db->update('part', $part, "kd_part = '".$kd_part_old."'");
+            // echo $this->db->last_query();
+            // exit;
             echo json_encode(array('saved'=>true)) ;
         } else{  
             echo json_encode(array('saved'=>false)) ;
@@ -111,6 +151,7 @@ class Parts extends CI_Controller {
         $parta = explode(' -> ', $part);
         $this->load->model('part_model', 'part');
         $part_detail = $this->part->showPart($parta[0]);
+        $this->kd_part = $part_detail->kd_part;
         // show part where        
         echo json_encode($part_detail);
         exit;

@@ -1,10 +1,10 @@
-$("#kd_part").keyup(function(e){ //the "kodePartNumber" can be any other input field ID
-	        if(e.keyCode == 8){ //trap the backspace key so that when deleting value, "checkkodePartNumber" will not be called.
-			//do nothing
-	}else{
-			checkKodePart("kd_part"); //call checkkodePartNumber function and put "kodePartNumber" field ID as parameter
-		}
-	});
+// $("#kd_part").keyup(function(e){ //the "kodePartNumber" can be any other input field ID
+// 	        if(e.keyCode == 8){ //trap the backspace key so that when deleting value, "checkkodePartNumber" will not be called.
+// 			//do nothing
+// 	}else{
+// 			checkKodePart("kd_part"); //call checkkodePartNumber function and put "kodePartNumber" field ID as parameter
+// 		}
+// 	});
 
 function checkKodePart(id){
 	var kodePartValue = $("#"+id).val(); //get current field value

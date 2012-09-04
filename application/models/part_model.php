@@ -8,6 +8,12 @@ class Part_model extends CI_Model {
 	   $this->table_name = 'part';
 	}
 
+	public function deletePart($kd_part)
+	{
+		$delete = $this->db->delete($this->table_name, array('kd_part' => $kd_part)); 
+		return $delete;
+	}
+
 	public function countAll()
 	{
 		$pencarian = $this->input->get('pencarian');

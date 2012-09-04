@@ -13,6 +13,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Part <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><?php echo anchor('parts/edit', 'Edit Data Part'); ?></li>
+								<li><?php echo anchor('parts/delete', 'Delete Data Part'); ?></li>
 								<!-- <li class="divider"></li> -->
 							</ul>
 						</li>

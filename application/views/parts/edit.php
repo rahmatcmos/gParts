@@ -11,7 +11,7 @@
 			<div class="control-group">
 				<?php echo form_label('Kode Part','kd_part',array('class'=>'control-label')) ?>
 				<div class="controls">
-					<?php echo form_input(array('name'=>'kd_part', 'id'=>'kd_part', 'class'=>'input-medium')); ?>
+					<?php echo form_input(array('name'=>'kd_part', 'id'=>'kd_part', 'class'=>'input-medium', 'disabled'=>'disabled')); ?>
 					<p class="help-block" style="font-size:x-small"><em>format : x-xxx-xxxx</em></p>
 				</div>
 			</div>
