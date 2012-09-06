@@ -66,20 +66,29 @@ class Parts extends CI_Controller {
          //load dulu dong library paginationnya
         $this->load->library('pagination');
         //untuk konfigurasi pagination pake ini
-        $config = array(
-            'base_url' => base_url() . 'parts/search/',
-            'total_rows' => $this->part->countAll(),
-            'per_page' => $perpage,
-        );
-
+        if ($this->uri->segment(3) == 'limit') {
+           $config = array(
+                'base_url' => base_url() . 'parts/search/get',
+                'total_rows' => $this->part->countMinimParts(),
+                'per_page' => $perpage,
+            );
+           $data = array(
+                'part_minim'    => $this->part->fetchMinimParts(array('perpage' => $perpage, 'offset' => $offset)),
+                'controller'    => 'parts'
+            );
+        } else {
+            $config = array(
+                'base_url' => base_url() . 'parts/search/',
+                'total_rows' => $this->part->countAll(),
+                'per_page' => $perpage,
+            );
+            $data = array(
+                'part_minim'    => $this->part->fetchAll(array('perpage' => $perpage, 'offset' => $offset)),
+                'controller'    => 'parts'
+            );
+        }
         //inisialisasi pagination & config di atas
         $this->pagination->initialize($config);
-
-        $data = array(
-            'part_minim'    => $this->part->fetchAll(array('perpage' => $perpage, 'offset' => $offset)),
-            'controller'	=> 'parts'
-        );
-
     	gview($view, $data);
     }
 

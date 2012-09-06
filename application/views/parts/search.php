@@ -54,3 +54,13 @@
 	</table>
 	<?php echo $this->pagination->create_links(); ?>
 </div>
+<script type="text/javascript">
+	$(function(){
+		var CI = {'base_url': '<?php echo base_url(); ?>'}
+		$('#search_parts_by').change(function() {
+		  if ($(this).val() == 'stock_minimum') {
+		  	window.location = CI.base_url+'parts/search/limit';
+		  }
+		});
+	});
+</script>
