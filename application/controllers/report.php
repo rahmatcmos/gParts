@@ -31,9 +31,32 @@ class Report extends CI_Controller {
         $this->db->where_in('p.jenis_pesan', array('tambah','ambil'));
         $this->db->group_by(array('MONTH(p.tgl_pesan)', 'p.jenis_pesan'));
         $query = $this->db->get('part_pesan ps');
-        echo json_encode($query->result());
-        exit;
+        $reports = $query->result();
+        $data = array();
+        $xml = '<chart>';
+        foreach ($reports as $report) {
+            $jenis_pesan = $report->jenis_pesan;
+            $jml = array();
+            for ($i=1; $i <= 12; $i++) { 
+                if ($report->bulan == $i) {
+                    array_push($jml, (int)  $report->jml);
+                } else {
+                    array_push($jml, 0);
+                }
+            }
+            $qty = implode(',', $jml);
+            $xml .= 
+            "<series>
+                <name>$jenis_pesan</name>
+                <data>$qty</data>
+            </series>"
+            ;
+        }
+        $xml .= '</chart>';
 
+        header('Content-type: text/xml');
+        echo $xml;
+        exit;
     }
 
 }

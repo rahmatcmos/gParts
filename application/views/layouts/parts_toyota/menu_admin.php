@@ -51,10 +51,10 @@
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu">
-									<li>
+<!-- 									<li>
 										<a href="#">Profile</a>
 									</li>
-									<li class="divider"></li>
+									<li class="divider"></li> -->
 									<li>
 										<?php echo anchor('login/logout', 'Logout'); ?>
 									</li>

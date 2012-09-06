@@ -1,6 +1,6 @@
 <?php $highcart = site_url("application/views/layouts/parts_toyota/js/highcart/") ?>
 <script src="<?php echo $highcart ?>/highcharts.js"></script>
-<script src="<?php echo $highcart ?>/exporting.js"></script>
+<script src="<?php echo $highcart ?>/modules/exporting.js"></script>
 <script type="text/javascript">
 	function tanggal_sekarang() {
 		var monthNames = new Array("January","February","March","April","May","June","July",
@@ -16,77 +16,115 @@
 		return tanggal;
 	}
 
-	$(function () {
-	    var chart;
-	    $(document).ready(function() {
-	        chart = new Highcharts.Chart({
-	            chart: {
-	                renderTo: 'container',
+	var CI = {'base_url':'<?php echo base_url() ?>'}
+	var getChartYear = function(year) {
+		var report;
+		var report = {
+		    chart: {
+	                renderTo: 'report_parts',
 	                type: 'column'
-	            },
-	            title: {
-	                text: 'Data Rekap Transaksi'
-	            },
-	            subtitle: {
-	                text: tanggal_sekarang()
-	            },
-	            xAxis: {
-	                categories: [
-	                    'Jan',
-	                    'Feb',
-	                    'Mar',
-	                    'Apr',
-	                    'May',
-	                    'Jun',
-	                    'Jul',
-	                    'Aug',
-	                    'Sep',
-	                    'Oct',
-	                    'Nov',
-	                    'Dec'
-	                ]
-	            },
-	            yAxis: {
-	                min: 0,
-	                title: {
-	                    text: 'Jumlah'
-	                }
-	            },
-	            legend: {
-	                layout: 'vertical',
-	                backgroundColor: '#FFFFFF',
-	                align: 'left',
-	                verticalAlign: 'top',
-	                x: 100,
-	                y: 70,
-	                floating: true,
-	                shadow: true
-	            },
-	            tooltip: {
-	                formatter: function() {
-	                    return ''+
-	                        this.x +': '+ this.y;
-	                }
-	            },
-	            plotOptions: {
-	                column: {
-	                    pointPadding: 0.2,
-	                    borderWidth: 0
-	                }
-	            },
-	                series: [{
-	                name: 'Tambah',
-	                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-	    
-	            }, {
-	                name: 'Ambil',
-	                data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-	    
-	            }]
-	        });
-	    });
-	    
-	});
-</script>
+            },
+            title: {
+                text: 'Data Rekap Transaksi'
+            },
+            subtitle: {
+                text: tanggal_sekarang()
+            },
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Jumlah'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                backgroundColor: '#FFFFFF',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 100,
+                y: 70,
+                floating: true,
+                shadow: true
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.x +': '+ this.y;
+                }
+            },
+		    series: []
+		};
 
-<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+		// Load the data from the XML file 
+		$.get(CI.base_url+ 'report/year/'+ year, function(xml) {
+			
+			// Split the lines
+			var $xml = $(xml);
+					
+			// push series
+			$xml.find('series').each(function(i, series) {
+				var seriesName = $(series).find('name').text();
+				var seriesOptions = {
+					name: $(series).find('name').text(),
+					type: 'column',
+					data: []
+				};
+				
+				// push data points
+				$(series).find('data').each(function(i, point) {
+					value = $(point).text().split(',');
+					for (var i = 0; i < value.length; i++) {
+						seriesOptions.data.push(
+							parseInt(value[i])
+						);
+					};
+				});
+				
+				// add it to the options
+				report.series.push(seriesOptions);
+			});
+			var chart = new Highcharts.Chart(report);
+		});
+	}
+</script>
+<form class="form-inline" id="getReport">
+  	<select id="yearRecord" class="input-small pad01">
+		<option value="0">- Year -</option>
+		<option value="2012">2012</option> 
+		<option value="2011">2011</option>
+		<option value="2010">2010</option>
+		<option value="2009">2009</option>
+		<option value="2008">2008</option>
+		<option value="2007">2007</option>
+		<option value="2006">2006</option>
+	</select>
+  	<button type="submit" class="btn">submit</button>
+</form>
+<hr>
+<div id="report_parts" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<script type="text/javascript">
+	$(function(){
+		$("#getReport").submit(function(){
+			var year = $("#yearRecord").val();
+			getChartYear(year);
+			return false;
+		});
+	});
+	
+</script>
