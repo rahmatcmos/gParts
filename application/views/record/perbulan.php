@@ -75,8 +75,9 @@
 </div>
 <script type="text/javascript">
 	$(function(){
+		var CI = {'base_url':'<?php echo base_url() ?>'}
 		cetak = function(bulan, tahun) {
-			window.location = "http://dev.antonparts/record/perbulan_print?bulan="+bulan+"&tahun="+tahun;
+			window.location = CI.base_url+"record/perbulan_print?bulan="+bulan+"&tahun="+tahun;
 		}
 	});
 </script>
