@@ -49,6 +49,24 @@ class Record extends CI_Controller {
 
     }
 
+    public function perbulan_print()
+    {
+        $view = 'record/perbulan_print';
+
+        $tahun = $this->input->get('tahun');
+        $bulan = $this->input->get('bulan');
+
+        if (empty($tahun) || empty($bulan)) {
+            $tahun = date('Y');
+            $bulan = date('m');
+        }
+
+        $records = $this->part->recordPerBulan($bulan, $tahun);
+        $data = array('records'=>$records, 'bulan'=>$bulan, 'tahun'=>$tahun);
+        $this->load->view($view, $data);
+
+    }
+
     public function peritem()
     {
     	$view = 'record/peritem';
@@ -60,6 +78,19 @@ class Record extends CI_Controller {
         }
         $data = array('records'=>$records, 'part'=>$part);
     	gview($view, $data);
+    }
+
+    public function peritem_print()
+    {
+        $view = 'record/peritem_print';
+        $part = $this->input->get('part');
+        if ($part) {
+            $records = $this->part->recordPerItem($part);
+        } else {
+            $records = $this->part->recordAll();
+        }
+        $data = array('records'=>$records, 'part'=>$part);
+        $this->load->view($view, $data);
     }
 
 }

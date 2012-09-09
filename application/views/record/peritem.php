@@ -47,7 +47,7 @@
 			<?php endforeach ?>
 		</tbody>
 	</table>
-	<a href="" class="btn btn-success pull-right"><i class="icon-print icon-white"></i> Cetak</a>
+	<a href="javascript:void(0)" class="btn btn-success pull-right" onclick="cetak('<?php echo $part ?>')"><i class="icon-print icon-white"></i> Cetak</a>
 </div>
 <script type="text/javascript">
 	var CI = {'base_url':'<?php echo base_url() ?>'}
@@ -105,5 +105,16 @@
 			var url = CI.base_url + 'record/peritem?part='+ encodeURIComponent(nama_part);
 			$(location).attr('href',url);
 	        return false;
+		});
+
+		$(function(){
+			cetak = function(part) {
+				if (part) {
+					window.location = CI.base_url+"record/peritem_print?part="+part;	
+				} else {
+					window.location = CI.base_url+"record/peritem_print";
+				}
+				
+			}
 		});
 </script>

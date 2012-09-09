@@ -47,24 +47,36 @@
 		</thead>
 		<tbody>
 			<?php $i = 1 ?>
-			<?php foreach ($records as $record): ?>
-				<tr>
-					<td><?php echo $i ?></td>
-					<td><?php echo $record->nama_part ?></td>
-					<td><?php echo $record->tanggal ?></td>
-					<td><?php echo $record->waktu ?> WIB</td>
-					<?php if ($record->jenis_pesan == 'tambah'): ?>
-						<td><?php echo $record->jml ?></td>
-						<td>-</td>
-					<?php else: ?>
-						<td>-</td>
-						<td><?php echo $record->jml ?></td>
-					<?php endif ?>
-					
-				</tr>
-				<?php $i += 1 ?>
-			<?php endforeach ?>
+			<?php if (count($records) > 0) : ?>
+				<?php foreach ($records as $record): ?>
+					<tr>
+						<td><?php echo $i ?></td>
+						<td><?php echo $record->nama_part ?></td>
+						<td><?php echo $record->tanggal ?></td>
+						<td><?php echo $record->waktu ?> WIB</td>
+						<?php if ($record->jenis_pesan == 'tambah'): ?>
+							<td><?php echo $record->jml ?></td>
+							<td>-</td>
+						<?php else: ?>
+							<td>-</td>
+							<td><?php echo $record->jml ?></td>
+						<?php endif ?>
+						
+					</tr>
+					<?php $i += 1 ?>
+				<?php endforeach ?>
+			<?php else: ?>
+				<tr><td colspan="6"><em>Tidak Ada Transaksi</em></td></tr>
+			<?php endif ?>
+			
 		</tbody>
 	</table>
-	<a href="" class="btn btn-success pull-left"><i class="icon-print icon-white"></i> Cetak</a>
+	<a href="javascript:void(0)" class="btn btn-success pull-left" onclick="cetak(<?php echo $bulan ?>,<?php echo $tahun ?>)"><i class="icon-print icon-white"></i> Cetak</a>
 </div>
+<script type="text/javascript">
+	$(function(){
+		cetak = function(bulan, tahun) {
+			window.location = "http://dev.antonparts/record/perbulan_print?bulan="+bulan+"&tahun="+tahun;
+		}
+	});
+</script>
