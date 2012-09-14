@@ -28,26 +28,30 @@
 		</thead>
 		<tbody>
 			<?php $i = 1 ?>
-			<?php foreach ($records as $record): ?>
-				<tr>
-					<td><?php echo $i ?></td>
-					<td><?php echo $record->nama_part ?></td>
-					<td><?php echo $record->tanggal ?></td>
-					<td><?php echo $record->waktu ?> WIB</td>
-					<?php if ($record->jenis_pesan == 'tambah'): ?>
-						<td><?php echo $record->jml ?></td>
-						<td>-</td>
-					<?php else: ?>
-						<td>-</td>
-						<td><?php echo $record->jml ?></td>
-					<?php endif ?>
-					
-				</tr>
-				<?php $i += 1 ?>
-			<?php endforeach ?>
+			<?php if (count($records) > 0) : ?>
+				<?php foreach ($records as $record): ?>
+					<tr>
+						<td><?php echo $i ?></td>
+						<td><?php echo $record->nama_part ?></td>
+						<td><?php echo $record->tanggal ?></td>
+						<td><?php echo $record->waktu ?> WIB</td>
+						<?php if ($record->jenis_pesan == 'tambah'): ?>
+							<td><?php echo $record->jml ?></td>
+							<td>-</td>
+						<?php else: ?>
+							<td>-</td>
+							<td><?php echo $record->jml ?></td>
+						<?php endif ?>
+						
+					</tr>
+					<?php $i += 1 ?>
+				<?php endforeach ?>
+			<?php else: ?>
+				<tr><td colspan="6"><em>Tidak Ada Transaksi</em></td></tr>
+			<?php endif ?>
 		</tbody>
 	</table>
-	<a href="javascript:void(0)" class="btn btn-success pull-right" onclick="cetak('<?php echo $part ?>')"><i class="icon-print icon-white"></i> Cetak</a>
+	<a href="javascript:void(0)" class="btn btn-success pull-left" onclick="cetak('<?php echo $part ?>')"><i class="icon-print icon-white"></i> Cetak</a>
 </div>
 <script type="text/javascript">
 	var CI = {'base_url':'<?php echo base_url() ?>'}
