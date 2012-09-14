@@ -60,16 +60,23 @@
 </div>
 <script type="text/javascript">
 	var CI = {'base_url':'<?php echo base_url() ?>'}
-	delete_part = function(kd_part) {
-		$.ajax({
-			type: 'get',
-			url: CI.base_url + 'parts/delete',
-			dataType: 'json',
-			data: {kd_part: kd_part},
-			success: function(data) {
-				console.log(data.result);
-				if (data.result) {alert("Success");location.reload()};
+
+	
+		delete_part = function(kd_part) {
+			if (confirm("Are you sure want to delete this part?")) {
+				$.ajax({
+					type: 'get',
+					url: CI.base_url + 'parts/delete',
+					dataType: 'json',
+					data: {kd_part: kd_part},
+					success: function(data) {
+						console.log(data.result);
+						if (data.result) {alert("Data '"+kd_part+"' Berhasil dihapus");location.reload()};
+					}
+				});
+			} else {
+				return false;
 			}
-		});
-	}
+		}
+	
 </script>
