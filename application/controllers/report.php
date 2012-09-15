@@ -25,13 +25,17 @@ class Report extends CI_Controller {
 
     public function year()
     {
+        // get year first :P
+        $year = $this->uri->segment(3);
         $this->db->select("p.jenis_pesan, MONTH(p.tgl_pesan) bulan, sum(ps.jml) jml");
         $this->db->join('pesan p', 'p.kd_pesan = ps.kd_pesan', 'left');
         $this->db->join('part', 'part.kd_part = ps.kd_part', 'left');
         $this->db->where_in('p.jenis_pesan', array('tambah','ambil'));
+        $this->db->where('YEAR(p.tgl_pesan)', $year);
         $this->db->group_by(array('MONTH(p.tgl_pesan)', 'p.jenis_pesan'));
         $query = $this->db->get('part_pesan ps');
         $reports = $query->result();
+        // echo $this->db->last_query();exit;
         $data = array();
         $xml = '<chart>';
         foreach ($reports as $report) {
