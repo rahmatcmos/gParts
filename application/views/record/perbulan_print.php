@@ -35,3 +35,7 @@
 		</tbody>
 	</table>
 </div>
+<script type="text/javascript">
+	// print page
+	print();
+</script>

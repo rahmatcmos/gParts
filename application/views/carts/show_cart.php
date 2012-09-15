@@ -25,3 +25,7 @@
 	<?php endforeach ?>
 	</tbody>
 </table>
+<script type="text/javascript">
+	// print page
+	print();
+</script>
