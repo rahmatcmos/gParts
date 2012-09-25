@@ -1,7 +1,7 @@
 <div id="search_parts">
 	<div class="pencarian">
 		<div class="well">
-			<?php echo form_open($controller.'/search', array('class'=>'form-search pull-left', 'method'=>'get')); ?>
+			<?php echo form_open($controller.'/search', array('class'=>'form-search pull-left', 'method'=>'post')); ?>
 			<?php echo form_input(array('name'=>'pencarian', 'class'=>'input-medium search-query')); ?>
 				<select name="by" id="search_parts_by" class="input-medium">
 					<option value="">-- Search By --</option>
@@ -62,5 +62,13 @@
 		  	window.location = CI.base_url+'parts/search/limit';
 		  }
 		});
+
+		var pencarian = $.session.get('sess_pencarian');
+		var by = $.session.get('sess_by');
+
+		console.log($.session.get('sess_pencarian'));
+
+		$('input[name="pencarian"]').val(pencarian);
+		$('select[name="by"]').val(by);
 	});
 </script>

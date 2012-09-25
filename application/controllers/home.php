@@ -26,6 +26,18 @@ class Home extends CI_Controller {
     public function search($offset = array())
     {
         $view = 'parts/search';
+        if(isset($_POST['pencarian']) || isset($_POST['by']))
+        {
+            $pencarian = $this->input->post('pencarian');
+            $by = $this->input->post('by');
+            //set session user data untuk pencarian, untuk paging pencarian
+            $this->session->set_userdata('sess_pencarian', $pencarian);
+            $this->session->set_userdata('sess_by', $by);
+        } else {
+            $pencarian = $this->session->userdata('sess_pencarian');
+            $by = $this->session->userdata('sess_by');
+        }    
+
 
         $this->load->model('part_model', 'part');
         //tentukan jumlah perpage boz
@@ -35,7 +47,7 @@ class Home extends CI_Controller {
         //untuk konfigurasi pagination pake ini
         $config = array(
             'base_url' => base_url() . 'home/search/',
-            'total_rows' => $this->part->countAll(),
+            'total_rows' => $this->part->countAll($pencarian, $by),
             'per_page' => $perpage,
         );
 
@@ -43,7 +55,7 @@ class Home extends CI_Controller {
         $this->pagination->initialize($config);
 
         $data = array(
-            'part_minim'    => $this->part->fetchAll(array('perpage' => $perpage, 'offset' => $offset)),
+            'part_minim'    => $this->part->fetchAll(array('perpage' => $perpage, 'offset' => $offset), $pencarian, $by),
             'controller'    => 'home'
         );
 

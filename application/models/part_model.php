@@ -14,37 +14,41 @@ class Part_model extends CI_Model {
 		return $delete;
 	}
 
-	public function countAll()
+	public function countAll($pencarian="", $by="")
 	{
-		$pencarian = $this->input->get('pencarian');
-        $by = $this->input->get('by');
-
 		$this->db->from($this->table_name);
 		$this->db->order_by('zone','asc');
 		if (($pencarian != '') || ($by != '')) {
 			if ($by == '') {
 				$by = 'nama_part';
+				$this->db->like($by, $pencarian);
+			} else if ($by == 'zone') {
+				$this->db->where($by, $pencarian);
+			} else {
+				$this->db->like($by, $pencarian);
 			}
-			$this->db->like($by, $pencarian);
+			
 		}
 		// return $this->db->count_all($this->table_name);
 		return $this->db->count_all_results();
 	}
 
-	public function fetchAll($limit = array())
-	{
-		$pencarian = $this->input->get('pencarian');
-        $by = $this->input->get('by');
-
-        $this->db->order_by('zone','asc');
-		$this->db->select('*');
+	public function fetchAll($limit = array(), $pencarian ="", $by ="")
+	{       
 
 		if (($pencarian != '') || ($by != '')) {
 			if ($by == '') {
 				$by = 'nama_part';
+				$this->db->like($by, $pencarian);
+			} else if ($by == 'zone') {
+				$this->db->where($by, $pencarian);
+			} else {
+				$this->db->like($by, $pencarian);
 			}
-			$this->db->like($by, $pencarian);
 		}
+
+		$this->db->order_by('zone','asc');
+		$this->db->select('*');
 
 		if ($limit == null) {
 			$query = $this->db->get($this->table_name);
@@ -58,10 +62,19 @@ class Part_model extends CI_Model {
 		}
 	}
 
-	public function fetchMinimParts($limit = array())
+	public function fetchMinimParts($limit = array(), $pencarian = "", $by = "")
 	{
-		$pencarian = $this->input->get('pencarian');
-        $by = $this->input->get('by');
+
+        if (($pencarian != '') || ($by != '')) {
+			if ($by == '') {
+				$by = 'nama_part';
+				$this->db->like($by, $pencarian);
+			} else if ($by == 'zone') {
+				$this->db->where($by, $pencarian);
+			} else {
+				$this->db->like($by, $pencarian);
+			}
+		}
 
 		$this->db->select('*');
 		$this->db->order_by('zone','asc');
@@ -69,8 +82,12 @@ class Part_model extends CI_Model {
 		if (($pencarian != '') || ($by != '')) {
 			if ($by == '') {
 				$by = 'nama_part';
+				$this->db->like($by, $pencarian);
+			} else if ($by == 'zone') {
+				$this->db->where($by, $pencarian);
+			} else {
+				$this->db->like($by, $pencarian);
 			}
-			$this->db->like($by, $pencarian);
 		}
 		if ($limit == null) {
 			$query = $this->db->get($this->table_name);
@@ -86,10 +103,8 @@ class Part_model extends CI_Model {
 		
 	}
 
-	public function countMinimParts()
+	public function countMinimParts($pencarian="", $by="")
 	{
-		$pencarian = $this->input->get('pencarian');
-        $by = $this->input->get('by');
 
 		$this->db->select('kd_part,nama_part,spec_detail,zone,lokasi_rak,jml_min,sat_jml_min,jml_stok,sat_jml_stok');
 		$this->db->from($this->table_name);
@@ -98,8 +113,12 @@ class Part_model extends CI_Model {
 		if (($pencarian != '') || ($by != '')) {
 			if ($by == '') {
 				$by = 'nama_part';
+				$this->db->like($by, $pencarian);
+			} else if ($by == 'zone') {
+				$this->db->where($by, $pencarian);
+			} else {
+				$this->db->like($by, $pencarian);
 			}
-			$this->db->like($by, $pencarian);
 		}
 		return $this->db->count_all_results();
 	}

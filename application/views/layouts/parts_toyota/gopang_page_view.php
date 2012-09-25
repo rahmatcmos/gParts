@@ -13,6 +13,7 @@
 
 	<script src="<?php echo $assets ?>js/jquery-1.7.2.min.js"></script>
 	<script src="<?php echo $assets ?>js/jquery.validate.min.js"></script>
+	<script src="<?php echo $assets ?>js/jquery.session.js"></script>
 	<script src="<?php echo $assets ?>bootstrap/assets/js/bootstrap-transition.js"></script>
 	<script src="<?php echo $assets ?>bootstrap/assets/js/bootstrap-alert.js"></script>
 	<script src="<?php echo $assets ?>bootstrap/assets/js/bootstrap-modal.js"></script>
