@@ -6,6 +6,7 @@ class Part_model extends CI_Model {
 	{
 	   parent::__construct();
 	   $this->table_name = 'part';
+	   date_default_timezone_set('Asia/Jakarta');
 	}
 
 	public function deletePart($kd_part)

@@ -1,6 +1,6 @@
 <div id="home">
 	<div id="sub_head" style="text-align:center">
-		<h3>DATA PART MINIMUM PER TANGGAL</h3>
+		<h3>DATA PART MINIMUM - <?php echo strtoupper(date('d F Y')) ?></h3>
 	</div>
 	<br>
 	<table class="table table-bordered">
